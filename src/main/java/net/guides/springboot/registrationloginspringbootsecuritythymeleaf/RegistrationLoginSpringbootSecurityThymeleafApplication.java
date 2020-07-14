@@ -10,7 +10,9 @@ public class RegistrationLoginSpringbootSecurityThymeleafApplication {
 	private static final Logger logger = (Logger) LoggerFactory.getLogger(RegistrationLoginSpringbootSecurityThymeleafApplication.class);
 	public static void main(String[] args) {
 		SpringApplication.run(RegistrationLoginSpringbootSecurityThymeleafApplication.class, args);
-		logger.info("Programm is running");
+		logger.info("Programm started");
+
+
 	}
 
 }

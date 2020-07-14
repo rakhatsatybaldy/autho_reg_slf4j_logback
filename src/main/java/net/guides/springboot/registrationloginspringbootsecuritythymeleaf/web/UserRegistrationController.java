@@ -5,6 +5,8 @@ import javax.validation.Valid;
 import net.guides.springboot.registrationloginspringbootsecuritythymeleaf.model.User;
 import net.guides.springboot.registrationloginspringbootsecuritythymeleaf.service.UserService;
 import net.guides.springboot.registrationloginspringbootsecuritythymeleaf.web.dto.UserRegistrationDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/registration")
 public class UserRegistrationController {
+    private static final Logger logger = LoggerFactory.getLogger(UserRegistrationController.class);
 
     @Autowired
     private UserService userService;
@@ -39,6 +42,7 @@ public class UserRegistrationController {
 
         User existing = userService.findByEmail(userDto.getEmail());
         if (existing != null) {
+            logger.error("This account already exists");
             result.rejectValue("email", null, "There is already an account registered with that email");
         }
 
@@ -46,7 +50,12 @@ public class UserRegistrationController {
             return "registration";
         }
 
-        userService.save(userDto);
+        logger.info("trying to save from registration form to db");
+        try {
+            userService.save(userDto);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+        }
         return "redirect:/registration?success";
     }
 }

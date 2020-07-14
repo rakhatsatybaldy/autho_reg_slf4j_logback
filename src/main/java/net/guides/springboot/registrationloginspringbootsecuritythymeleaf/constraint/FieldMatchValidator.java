@@ -4,9 +4,10 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FieldMatchValidator implements ConstraintValidator < FieldMatch, Object > {
-
     private String firstFieldName;
     private String secondFieldName;
 
